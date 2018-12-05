@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "scheme": "petbite",
+    "name": "Petbite",
+    "description": "Check your pet food stats.",
+    "slug": "pb",
+    "privacy": "public",
+    "sdkVersion": "29.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "android": {
+      "package": "com.petbite.petbite"
+    },
+    "ios": {
+      "bundleIdentifier": "com.petbite.petbite",
+      "supportsTablet": true
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

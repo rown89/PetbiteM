@@ -17,25 +17,21 @@ export default class ResetForgottenPasswordScreen extends React.Component {
 
   async componentDidMount() {
     _this = this;
-    console.log("token arrived to reset page:" ,this.props.navigation.state.params.token)
+    console.log("token arrived to reset page:", this.props.navigation.state.params.token)
     try {
-      await axios.get("http://62.75.141.240:9001/apppwreset", {
-        params: {
-          resetPasswordToken: this.props.navigation.state.params.token
-        }
+      await axios.get("http://62.75.141.240:9001/apppwreset?token=" + this.props.navigation.state.params.token, {
       })
-      .then( response => {
-        console.log(response)
-        if (response.data.success === 200){
-          this.setState({
-            isLoading: false,
-            username: response.data.username,
-          })
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        .then(response => {
+          if (response.data.success === true) {
+            this.setState({
+              isLoading: false,
+              username: response.data.username,
+            })
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     } catch (e) {
       console.error(e);
     }

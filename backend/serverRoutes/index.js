@@ -174,6 +174,7 @@ router.get("/apppwreset", (req, res, next) => {
         res.json("password reset link is invalid or has expired")
       } else {
         res.status(200).send({
+          success: true,
           username: user.username,
           message: "password reset link a-ok"
         });

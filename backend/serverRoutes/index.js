@@ -185,6 +185,28 @@ router.get("/apppwreset", (req, res, next) => {
     });
 });
 
+router.put("/apppwchange", (req, res, next) => {
+  models.Users.findOne({ where: { username: req.body.username, resetPasswordToken: req.body.token } })
+    .then(user => {
+      if (user == null) {
+        console.log("This user doesn't exist, cant change password")
+        res.json("This user doesn't exist, cant change password")
+      } else {
+        user.update({
+          password: req.body.password,
+          resetPasswordExpires: null,
+          resetPasswordToken: null
+        })
+          .then(() => {
+            res.status(200).send({
+              success: true,
+              message: "Password changed correctly"
+            });
+          })
+      }
+    })
+});
+
 // Home
 router.post("/home", passport.authenticate("jwt", {session: false}), (req, res) => {
   models.Brands.findAll({
@@ -744,7 +766,7 @@ router.post("/profile", passport.authenticate("jwt", {session: false}), (req, re
   });
 });
 
-//Password Reset
+//Change Password in Settings
 router.put("/changePassword", passport.authenticate("jwt", { session: false }), (req, res, next) => {
   models.Users.findOne({ where: { name: req.user.name } })
     .then(user => {

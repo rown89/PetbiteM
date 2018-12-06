@@ -2,13 +2,13 @@ import React from "react";
 import { Text, StyleSheet, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } from "react-native";
 import { NavigationActions } from 'react-navigation';
 import axios from "axios";
-import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 export default class ResetForgottenPasswordScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
+      token: "",
       username: "",
       password: "",
       confirmPassword: "",
@@ -26,6 +26,7 @@ export default class ResetForgottenPasswordScreen extends React.Component {
             this.setState({
               isLoading: false,
               username: response.data.username,
+              token: this.props.navigation.state.params.token
             })
           }
         })
@@ -38,13 +39,14 @@ export default class ResetForgottenPasswordScreen extends React.Component {
   }
 
   changePass = () => {
-    axios.put("http://62.75.141.240:9001/changePassword", {
+    axios.put("http://62.75.141.240:9001/apppwchange", {
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
+      token: this.state.token
     })
       .then(response => {
         console.log(response)
-        if (response.data.success === 200 && response.data.message === "password reset link a-ok") {
+        if (response.data.success === true) {
           Alert.alert("Password changed correctly")
         }
       })
@@ -64,24 +66,26 @@ export default class ResetForgottenPasswordScreen extends React.Component {
 
     return (
       <View style={styles.mainContainer}>
-        <TextInput style={styles.LoginTextInput}
-          underlineColorAndroid="#33B6C0"
-          placeholder="New Password" keyboardType="visible-password"
-          autoCapitalize="none" autoCorrect={false}
-          onChangeText={password => this.setState({ password })}
-        />
-        <TextInput style={styles.LoginTextInput}
-          underlineColorAndroid="#33B6C0"
-          placeholder="Confirm Password" keyboardType="visible-password"
-          autoCapitalize="none" autoCorrect={false}
-          onChangeText={confirmPassword => this.setState({ confirmPassword })}
-        />
-        <TouchableOpacity style={styles.LoginButton}
-          onPress={() => this.changePass }>
-          <Text style={{ color: "white" }}>
-            Reset Password
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.FormLogin}>
+          <TextInput style={styles.LoginTextInput}
+            underlineColorAndroid="#33B6C0"
+            placeholder="New Password" keyboardType="visible-password"
+            autoCapitalize="none" autoCorrect={false}
+            onChangeText={password => this.setState({ password })}
+          />
+          <TextInput style={styles.LoginTextInput}
+            underlineColorAndroid="#33B6C0"
+            placeholder="Confirm Password" keyboardType="visible-password"
+            autoCapitalize="none" autoCorrect={false}
+            onChangeText={confirmPassword => this.setState({ confirmPassword })}
+          />
+          <TouchableOpacity style={styles.LoginButton}
+            onPress={() => this.changePass }>
+            <Text style={{ color: "white" }}>
+              Reset Password
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -89,20 +93,22 @@ export default class ResetForgottenPasswordScreen extends React.Component {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    marginTop: getStatusBarHeight(),
+    flex: 1,
+    flexDirection: "column",
+    margin: 10,
+    borderRadius: 5,
+    elevation: 3,
+    backgroundColor: "#FFFFFF"
   },
   FormLogin: {
-    flex: 1,
-    marginTop: 20,
-    flexDirection: "column",
-    alignItems: "center"
+    marginTop: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
   LoginTextInput: {
     width: "90%",
-    height: 60,
-    marginTop: 20,
-    padding: 15,
-    color: "black"
+    height: 50,
+    paddingLeft: 15
   },
   errorView: {
     flex: 1,

@@ -14,6 +14,9 @@ import validateLoginInput from "../validation/login";
 import validateRecoveryInput from "../validation/recovery";
 
 const Op = Sequelize.Op;
+const operatorsAliases = {
+  $gt: Op.gt,
+}
 const router = express.Router();
 
 router.get("/"),
@@ -157,16 +160,16 @@ router.post("/passRecovery", (req, res, next) => {
 //Reset Forgotten Password
 router.get("/reset", (req, res, next) => {
   const token = req.query.token
+  console.log(token)
   res.redirect("exp://192.168.1.197:19000/--/apppwreset?token=" + token);
 })
 
 router.get("/apppwreset", (req, res, next) => {
-  console.log("redirect effettuato")
-  console.log("token", req.query.token)
-  models.Users.findOne({ where: { resetPasswordToken: req.query.token, resetPasswordExpires: { [Op.gt]: Data.now() } } })
+  console.log("token", req.query.token);
+  models.Users.findOne({ where: { resetPasswordToken: req.query.token, resetPasswordExpires: { $gt: new Date() } } })
     .then(user => {
       console.log(user)
-      if (user === null) {
+      if (user == null) {
         console.log("password reset link is invalid or has expired")
         res.json("password reset link is invalid or has expired")
       } else {
@@ -176,7 +179,10 @@ router.get("/apppwreset", (req, res, next) => {
         });
       }
     })
-})
+    .catch((err) => {
+      console.log("error:", err)
+    });
+});
 
 // Home
 router.post("/home", passport.authenticate("jwt", {session: false}), (req, res) => {
@@ -758,6 +764,6 @@ router.put("/changePassword", passport.authenticate("jwt", { session: false }), 
           })
       }
     })
-})
+});
 
 module.exports = router;

@@ -19,35 +19,35 @@ export default class RecipeList extends React.Component {
     axios.post("http://62.75.141.240:9001/" + this.state.dinamicUrl, {
       id: this.state.id
     })
-    .then(response => {
-      this.setState({
-        recipe: response.data,
-        isLoading: false
+      .then((response) => {
+        this.setState({
+          recipe: response.data,
+          isLoading: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    })
-    .catch(error => {
-      console.log(error);
-    });
   }
 
   recipeReader() {
     return this.state.recipe.map((element, id) => {
       amount = element.amount;
       unit = element.unit;
-      if (this.state.recipe[0].additive ){ name = element.additive.name; }
-      if (this.state.recipe[0].amino_acid ){ name = element.amino_acid.name; }
-      if (this.state.recipe[0].anal_comp ){ name = element.anal_comp.name; }
-      if (this.state.recipe[0].ingredient ){ name = element.ingredient.name; }
-      if (this.state.recipe[0].mineral ){ name = element.mineral.name; }
-      if (this.state.recipe[0].plant ){ name = element.plant.name; }
-      if (this.state.recipe[0].vitamin ){ name = element.vitamin.name; }
+      if (this.state.recipe[0].additive ) { name = element.additive.name; }
+      if (this.state.recipe[0].amino_acid ) { name = element.amino_acid.name; }
+      if (this.state.recipe[0].anal_comp ) { name = element.anal_comp.name; }
+      if (this.state.recipe[0].ingredient ) { name = element.ingredient.name; }
+      if (this.state.recipe[0].mineral ) { name = element.mineral.name; }
+      if (this.state.recipe[0].plant ) { name = element.plant.name; }
+      if (this.state.recipe[0].vitamin ) { name = element.vitamin.name; }
 
-      unitCheck = unit => {
-        if (unit !== null) { 
-          return unit.name; 
+      unitCheck = (unit) => {
+        if (unit !== null) {
+          return unit.name;
         }
-        else { 
-          return ""; 
+        else {
+          return '';
         }
       };
 
@@ -58,7 +58,7 @@ export default class RecipeList extends React.Component {
       );
     });
   }
-  
+
   chartReader() {
     return this.state.recipe.filter(item => {
       return item.amount >= 0.1
@@ -67,7 +67,7 @@ export default class RecipeList extends React.Component {
         amount = element.amount;
         unit = element.unit;
         
-        unitCheck = unit => {
+        unitCheck = (unit) => {
           if (unit !== null) { 
             return unit.name; 
           }

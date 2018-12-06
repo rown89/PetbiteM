@@ -1,6 +1,6 @@
 const vitamins = (sequelize, DataTypes) => {
   const Vitamins = sequelize.define(
-    "vitamins",
+    'vitamins',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -8,12 +8,12 @@ const vitamins = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         autoIncrement: true,
-        validate: { isNumeric: true }
+        validate: { isNumeric: true },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { isAlpha: true, isLowercase: true }
+        validate: { isAlpha: true, isLowercase: true },
       },
       description: {
         type: DataTypes.STRING,
@@ -22,19 +22,19 @@ const vitamins = (sequelize, DataTypes) => {
       link: {
         type: DataTypes.STRING,
         allowNull: true,
-      }
+      },
     },
     {
       timestamps: false,
-      underscored: true
-    }
+      underscored: true,
+    },
   );
 
-  Vitamins.associate = models => {
-    /*Vitamins.hasMany(
+  Vitamins.associate = (models) => {
+    /* Vitamins.hasMany(
       models.Vitamins_recipes,
       { foreignKey: 'vitamin_id', constraints: false }
-    )*/
+    ) */
   };
 
   return Vitamins;

@@ -1,6 +1,6 @@
 const brands = (sequelize, DataTypes) => {
   const Brands = sequelize.define(
-    "brands",
+    'brands',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -8,32 +8,32 @@ const brands = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         autoIncrement: true,
-        validate: { isNumeric: true }
+        validate: { isNumeric: true },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { isAlpha: true, isLowercase: true }
+        validate: { isAlpha: true, isLowercase: true },
       },
       image: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
       },
       image_thumb: {
         type: DataTypes.STRING,
-        allowNull: true
-      }
+        allowNull: true,
+      },
     },
     {
       timestamps: false,
-      underscored: true
-    }
+      underscored: true,
+    },
   );
 
-  Brands.associate = models => {
+  Brands.associate = (models) => {
     Brands.hasOne(
-      models.Products, 
-      { foreignKey: "brand_id" }
+      models.Products,
+      { foreignKey: 'brand_id' },
     );
   };
 

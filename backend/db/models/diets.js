@@ -1,6 +1,6 @@
 const diets = (sequelize, DataTypes) => {
   const Diets = sequelize.define(
-    "diets",
+    'diets',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -8,22 +8,22 @@ const diets = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         autoIncrement: true,
-        validate: { isNumeric: true }
+        validate: { isNumeric: true },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { isAlpha: true, isLowercase: true }
-      }
+        validate: { isAlpha: true, isLowercase: true },
+      },
     },
     {
       timestamps: false,
-      underscored: true
-    }
+      underscored: true,
+    },
   );
 
-  Diets.associate = models => {
-   
+  Diets.associate = (models) => {
+
   };
 
   return Diets;

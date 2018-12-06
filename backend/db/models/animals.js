@@ -1,6 +1,6 @@
 const animals = (sequelize, DataTypes) => {
   const Animals = sequelize.define(
-    "animals",
+    'animals',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -8,25 +8,25 @@ const animals = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         autoIncrement: true,
-        validate: { isNumeric: true }
+        validate: { isNumeric: true },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { isAlpha: true, isLowercase: true }
-      }
+        validate: { isAlpha: true, isLowercase: true },
+      },
     },
     {
       timestamps: false,
-      underscored: true
-    }
+      underscored: true,
+    },
   );
 
-  Animals.associate = models => {
-    /*Animals.hasOne(
+  Animals.associate = (models) => {
+    /* Animals.hasOne(
       models.Products,
       { foreignKey: "animal_id" }
-    );*/
+    ); */
   };
 
   return Animals;

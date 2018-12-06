@@ -1,6 +1,6 @@
 const additives = (sequelize, DataTypes) => {
   const Additives = sequelize.define(
-    "additives",
+    'additives',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -8,12 +8,12 @@ const additives = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         autoIncrement: true,
-        validate: { isNumeric: true }
+        validate: { isNumeric: true },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { isAlpha: true, isLowercase: true }
+        validate: { isAlpha: true, isLowercase: true },
       },
       description: {
         type: DataTypes.STRING,
@@ -22,19 +22,19 @@ const additives = (sequelize, DataTypes) => {
       link: {
         type: DataTypes.STRING,
         allowNull: true,
-      }
+      },
     },
     {
       timestamps: false,
-      underscored: true
-    }
+      underscored: true,
+    },
   );
 
-  Additives.associate = models => {
-    /*Additives.hasMany(
+  Additives.associate = (models) => {
+    /* Additives.hasMany(
       models.Additives_recipes,
       { foreignKey: 'additive_id' }
-    )*/
+    ) */
   };
 
   return Additives;

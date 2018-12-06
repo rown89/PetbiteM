@@ -1,6 +1,6 @@
 const types = (sequelize, DataTypes) => {
   const Types = sequelize.define(
-    "types",
+    'types',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -8,24 +8,24 @@ const types = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         autoIncrement: true,
-        validate: { isNumeric: true }
+        validate: { isNumeric: true },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { isAlpha: true, isLowercase: true }
-      }
+        validate: { isAlpha: true, isLowercase: true },
+      },
     },
     {
       timestamps: false,
-      underscored: true
-    }
+      underscored: true,
+    },
   );
 
-  Types.associate = models => {
+  Types.associate = (models) => {
     Types.hasOne(
       models.Products,
-      { foreignKey: "type_id" }
+      { foreignKey: 'type_id' },
     );
   };
 

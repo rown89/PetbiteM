@@ -34,6 +34,10 @@ export default class LoginScreen extends React.Component {
       }
   }
 
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this._handleOpenURL);
+  }
+  
   async _handleOpenURL(event) {
     try {
       const siteUrl = event.url.slice(0, 39);
@@ -46,21 +50,6 @@ export default class LoginScreen extends React.Component {
     } catch (error) {
       console.error(error);
     }
-  }
-
-  navigate = (url) => { // E
-    const { navigate } = this.props.navigation;
-    const route = url.replace(/.*?:\/\//g, '');
-    const id = route.match(/\/([^\/]+)\/?$/)[1];
-    const routeName = route.split('/')[0];
-  
-    if (routeName === 'resetpassword') {
-      navigate('resetpassword')
-    };
-  }
-
-  componentWillUnmount() {
-    Linking.removeEventListener('url', this._handleOpenURL);
   }
 
   async saveItem(item, selectedValue) {

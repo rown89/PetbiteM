@@ -1,6 +1,6 @@
 const units = (sequelize, DataTypes) => {
   const Units = sequelize.define(
-    "units",
+    'units',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -8,21 +8,21 @@ const units = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         autoIncrement: true,
-        validate: { isNumeric: true }
+        validate: { isNumeric: true },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { isAlpha: true }
-      }
+        validate: { isAlpha: true },
+      },
     },
     {
       timestamps: false,
-      underscored: true
-    }
+      underscored: true,
+    },
   );
 
-  Units.associate = models => {
+  Units.associate = (models) => {
   };
 
   return Units;

@@ -1,6 +1,6 @@
 const recipes = (sequelize, DataTypes) => {
   const Recipes = sequelize.define(
-    "recipes",
+    'recipes',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -8,21 +8,21 @@ const recipes = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         autoIncrement: true,
-        validate: { isNumeric: true }
+        validate: { isNumeric: true },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { isAlpha: true, isLowercase: true }
-      }
+        validate: { isAlpha: true, isLowercase: true },
+      },
     },
     {
       timestamps: false,
-      underscored: true
-    }
+      underscored: true,
+    },
   );
 
-  Recipes.associate = models => {
+  Recipes.associate = (models) => {
   };
 
   return Recipes;

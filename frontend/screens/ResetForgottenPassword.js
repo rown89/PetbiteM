@@ -33,8 +33,8 @@ export default class ResetForgottenPasswordScreen extends React.Component {
         .catch(error => {
           console.log(error)
         })
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error(err);
     }
   }
 

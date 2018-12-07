@@ -4,7 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import axios from "axios";
 
 export default class ForgotPasswordScreen extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       username: "",
@@ -12,7 +12,7 @@ export default class ForgotPasswordScreen extends React.Component {
     };
   }
 
-  async recoveryPress() {
+  async recoveryPress () {
     try {
       await axios.post('http://62.75.141.240:9001/passRecovery', {
         username: this.state.username,
@@ -21,20 +21,20 @@ export default class ForgotPasswordScreen extends React.Component {
           if (response.data.errors) {
             this.setState({
               errorUsername: response.data.errors.username
-            })
+            });
           } else {
             Alert.alert(JSON.stringify(response.data.msg))
           }
         })
-        .catch(error =>
-          console.log(error),
-        )
-    } catch (e) {
-      console.error(e);
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (err) {
+      console.error(err);
     }
   }
 
-  render() {
+  render () {
     return (
       <View styles={styles.mainContainer}>
         <View style={styles.FormLogin}>
@@ -42,7 +42,7 @@ export default class ForgotPasswordScreen extends React.Component {
            underlineColorAndroid="#33B6C0"
             placeholder="Email" keyboardType="email-address"
             autoCapitalize="none" autoCorrect={false}
-            onChangeText={username => this.setState({ username })}
+            onChangeText={(username) => this.setState({ username })}
           />
           <View style={styles.errorView}>
             <Text style={styles.errorState}>
@@ -50,19 +50,21 @@ export default class ForgotPasswordScreen extends React.Component {
             </Text>
           </View>
           <TouchableOpacity style={styles.LoginButton}
-            onPress={() => { this.recoveryPress() }}>
+            onPress={() => {
+              this.recoveryPress();
+              }}>
             <Text style={{ color: "white" }}>
               Reset Password
               </Text>
           </TouchableOpacity>
         </View>
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
-  mainContainer:{
+  mainContainer: {
     backgroundColor: "white"
   },
   FormLogin: {
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     color: "black"
   },
-  errorView:{
+  errorView: {
     flex: 1,
     paddingLeft: 10
   },

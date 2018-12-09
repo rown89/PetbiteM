@@ -16,6 +16,7 @@ module.exports = {
         "react"
     ],
     "rules": {
+        "no-console": "off",
         "accessor-pairs": "error",
         "array-bracket-newline": "error",
         "array-bracket-spacing": "off",
@@ -178,7 +179,13 @@ module.exports = {
         "no-restricted-imports": "error",
         "no-restricted-modules": "error",
         "no-restricted-properties": "error",
-        "no-restricted-syntax": "error",
+        "no-restricted-syntax": [
+            "error",
+            {
+                "selector": "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
+                "message": "Unexpected property on console object was called"
+            }
+        ],
         "no-return-assign": "error",
         "no-return-await": "error",
         "no-script-url": "error",

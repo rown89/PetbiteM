@@ -1,10 +1,10 @@
 import React from "react";
-import {Text,StyleSheet,View,TouchableOpacity,ActivityIndicator,ScrollView} from "react-native";
+import { Text,StyleSheet,View,TouchableOpacity,ActivityIndicator,ScrollView } from "react-native";
 import { NavigationActions } from 'react-navigation';
 import axios from "axios";
 
 export default class MostUsed extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       isLoading: true,
@@ -14,22 +14,22 @@ export default class MostUsed extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     axios.post("http://62.75.141.240:9001/" + this.state.dinamicUrl, {
     })
-      .then(response => {
+      .then((response) => {
         this.setState({
           mostUsedList: response.data,
           isLoading: false,
-				});
-			})
-      .catch(error => {
+        });
+      })
+      .catch((error) => {
         console.log(error);
       });
   }
 
-  mostUsedReader(){
-    if(this.props.type === "Aminoacids"){
+  mostUsedReader () {
+    if (this.props.type === "Aminoacids") {
       const x = this.state.mostUsedList.map((item, id) => {
         return (
           <View style={styles.mostUsedItem} key={id}>
@@ -40,11 +40,11 @@ export default class MostUsed extends React.Component {
               </Text>
             </TouchableOpacity>
           </View>
-        )
-      })
-      return x
+        );
+      });
+      return x;
     }
-    if(this.props.type === "Analytical Comps"){
+    if (this.props.type === "Analytical Comps") {
       const x = this.state.mostUsedList.map((item, id) => {
         return (
           <View style={styles.mostUsedItem} key={id}>
@@ -55,11 +55,11 @@ export default class MostUsed extends React.Component {
               </Text>
             </TouchableOpacity>
           </View>
-        )
-      })
-      return x
+        );
+      });
+      return x;
     }
-    if(this.props.type === "Ingredients"){
+    if (this.props.type === "Ingredients") {
       const x = this.state.mostUsedList.map((item, id) => {
         return (
           <View style={styles.mostUsedItem} key={id}>
@@ -70,11 +70,11 @@ export default class MostUsed extends React.Component {
               </Text>
             </TouchableOpacity>
           </View>
-        )
-      })
-      return x
+        );
+      });
+      return x;
     }
-    if(this.props.type === "Minerals"){
+    if (this.props.type === "Minerals") {
       const x = this.state.mostUsedList.map((item, id) => {
         return (
           <View style={styles.mostUsedItem} key={id}>
@@ -85,11 +85,11 @@ export default class MostUsed extends React.Component {
               </Text>
             </TouchableOpacity>
           </View>
-        )
-      })
-      return x
+        );
+      });
+      return x;
     }
-    if(this.props.type === "Vitamins"){
+    if (this.props.type === "Vitamins") {
       const x = this.state.mostUsedList.map((item, id) => {
         return (
           <View style={styles.mostUsedItem} key={id}>
@@ -100,11 +100,11 @@ export default class MostUsed extends React.Component {
               </Text>
             </TouchableOpacity>
           </View>
-        )
-      })
-      return x
+        );
+      });
+      return x;
     }
-    if(this.props.type === "Plants"){
+    if (this.props.type === "Plants"){
       const x = this.state.mostUsedList.map((item, id) => {
         return (
           <View style={styles.mostUsedItem} key={id}>
@@ -115,29 +115,29 @@ export default class MostUsed extends React.Component {
               </Text>
             </TouchableOpacity>
           </View>
-        )
-      })
-      return x
+        );
+      });
+      return x;
     }
   }
 
-  onPressMostUsedItem(itemId, itemName) {
-    let _this = this;
+  onPressMostUsedItem (itemId, itemName) {
+    const _this = this;
     axios.post("http://62.75.141.240:9001/selectedMostUsed" + this.props.linkType, {
         elementID: itemId
       })
-      .then(response => {
+      .then((response) => {
         this.setState({
           productsArray: response.data
         });
         _this.props.navigation.navigate({routeName: "productsmostusedlist", params: { res: this.state.productsArray, title: itemName }});
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
 
-  render() {
+  render () {
     if (this.state.isLoading) {
       return <ActivityIndicator />;
     }

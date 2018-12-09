@@ -120,12 +120,32 @@ export default class SearchScreen extends React.Component {
                 <Text>{Standard = "Standard"}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.modalTouchable1}
+                onPress={() => { this.setModalStatus(Diabets) }}>
+                <Text>{Diabets = "Diabets"}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.modalTouchable2}
                 onPress={() => { this.setModalStatus(Hepatic) }}>
                 <Text>{Hepatic = "Hepatic"}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.modalTouchable1}
+                onPress={() => { this.setModalStatus(Intestinal) }}>
+                <Text>{Intestinal = "Intestinal"}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.modalTouchable2}
+                onPress={() => { this.setModalStatus(Renal) }}>
+                <Text>{Renal = "Renal"}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.modalTouchable1}
+                onPress={() => { this.setModalStatus(Sterlised) }}>
+                <Text>{Sterlised = "Sterlised"}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.modalTouchable2}
                 onPress={() => { this.setModalStatus(Urinary) }}>
                 <Text>{Urinary = "Urinary"}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.modalTouchable1}
+                onPress={() => { this.setModalStatus(Weight) }}>
+                <Text>{Weight = "Weight Control"}</Text>
               </TouchableOpacity>
               <TouchableHighlight style={{paddingTop: 20, justifyContent: "center", alignItems: "center"}}
                 onPress={() => { this.setModalVisible(false) }}>
@@ -214,7 +234,6 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     width: 250,
-    height: 290,
     borderRadius: 8,
     padding: 20,
     backgroundColor: '#fff'

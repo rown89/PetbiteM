@@ -1,10 +1,10 @@
 import React from "react";
-import { Text, StyleSheet, View, ActivityIndicator } from "react-native";
+import { Text, View, ActivityIndicator } from "react-native";
 import { VictoryBar, VictoryChart, VictoryLabel, VictoryTheme, VictoryAxis } from "victory-native";
 import axios from "axios";
 
 export default class RecipeList extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       isLoading: true,
@@ -15,7 +15,7 @@ export default class RecipeList extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     axios.post("http://62.75.141.240:9001/" + this.state.dinamicUrl, {
       id: this.state.id
     })
@@ -30,7 +30,7 @@ export default class RecipeList extends React.Component {
       });
   }
 
-  recipeReader() {
+  recipeReader () {
     return this.state.recipe.map((element, id) => {
       amount = element.amount;
       unit = element.unit;
@@ -85,11 +85,11 @@ export default class RecipeList extends React.Component {
         if (this.state.recipe[0].vitamin ){ name = element.vitamin.name; }
 
         const Data = { x: name, y: amount, z: unitCheck(unit) };
-        return Data
+        return Data;
       });
   }
 
-  render() {
+  render () {
     if (this.state.isLoading) {
       return (
         <View style={{ justifyContent: "center", alignContent: "center", alignItems: "center" }}>
@@ -123,7 +123,7 @@ export default class RecipeList extends React.Component {
                   fontFamily: "googlesans-regular"
                 }
               }}
-              labels={d => d.y + d.z} 
+              labels={(d) => d.y + d.z} 
               labelComponent={<VictoryLabel dx={2} />}
             />
             <VictoryAxis theme={VictoryTheme.material}
@@ -137,9 +137,6 @@ export default class RecipeList extends React.Component {
           </VictoryChart>
         </View>
       </View>
-    )
+    );
   }
 }
-
-const styles = StyleSheet.create({
-});

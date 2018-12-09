@@ -44,8 +44,8 @@ export default class ResetForgottenPasswordScreen extends React.Component {
       password: this.state.password,
       token: this.state.token
     })
-      .then(response => {
-        console.log(response)
+      .then((response) => {
+        console.log(response.data)
         if (response.data.success === true) {
           Alert.alert("Password changed correctly")
         }

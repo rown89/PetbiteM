@@ -136,8 +136,8 @@ export default class SearchScreen extends React.Component {
                 <Text>{Renal = "Renal"}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.modalTouchable1}
-                onPress={() => { this.setModalStatus(Sterlised) }}>
-                <Text>{Sterlised = "Sterlised"}</Text>
+                onPress={() => { this.setModalStatus(Sterilised) }}>
+                <Text>{Sterilised = "Sterilised"}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.modalTouchable2}
                 onPress={() => { this.setModalStatus(Urinary) }}>

@@ -148,7 +148,7 @@ router.post('/passRecovery', (req, res) => {
             if (err) {
               console.log('There was an error:', err);
             } else {
-              console.log('here is the res: ', response);
+              console.log('here is the res: ', response.data);
               res.status(200).send({ success: true, msg: 'Recovery successful, check your Email' });
             }
           });

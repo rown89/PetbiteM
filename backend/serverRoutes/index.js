@@ -368,6 +368,7 @@ router.post('/searchProductsStandard', passport.authenticate('jwt', { session: f
   const product = req.body.search;
   models.Products.findAll({
     where: { name: { $like: '%' + product + '%' }, diet_id: 1 },
+    order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
   })
@@ -383,6 +384,7 @@ router.post('/searchProductsDiabets', passport.authenticate('jwt', { session: fa
   const product = req.body.search;
   models.Products.findAll({
     where: { name: { $like: '%' + product + '%' }, diet_id: 8 },
+    order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
   })
@@ -398,6 +400,7 @@ router.post('/searchProductsHepatic', passport.authenticate('jwt', { session: fa
   const product = req.body.search;
   models.Products.findAll({
     where: { name: { $like: '%' + product + '%' }, diet_id: 2 },
+    order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
   })
@@ -413,6 +416,7 @@ router.post('/searchProductsIntestinal', passport.authenticate('jwt', { session:
   const product = req.body.search;
   models.Products.findAll({
     where: { name: { $like: '%' + product + '%' }, diet_id: 5 },
+    order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
   })
@@ -428,6 +432,7 @@ router.post('/searchProductsRenal', passport.authenticate('jwt', { session: fals
   const product = req.body.search;
   models.Products.findAll({
     where: { name: { $like: '%' + product + '%' }, diet_id: 7 },
+    order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
   })
@@ -443,6 +448,7 @@ router.post('/searchProductsSterilised', passport.authenticate('jwt', { session:
   const product = req.body.search;
   models.Products.findAll({
     where: { name: { $like: '%' + product + '%' }, diet_id: 6 },
+    order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
   })
@@ -458,6 +464,7 @@ router.post('/searchProductsUrinary', passport.authenticate('jwt', { session: fa
   const product = req.body.search;
   models.Products.findAll({
     where: { name: { $like: '%' + product + '%' }, diet_id: 3 },
+    order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
   })
@@ -469,10 +476,11 @@ router.post('/searchProductsUrinary', passport.authenticate('jwt', { session: fa
     });
 });
 
-router.post('/searchProductsWeight Control', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post('/searchProductsWeight%20Control', passport.authenticate('jwt', { session: false }), (req, res) => {
   const product = req.body.search;
   models.Products.findAll({
     where: { name: { $like: '%' + product + '%' }, diet_id: 10 },
+    order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
   })

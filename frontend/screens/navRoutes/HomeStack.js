@@ -61,7 +61,7 @@ const HomeStack = createStackNavigator({
         }
       }
     },
-    hometabs : {
+    hometabs: {
       screen: TabsStack,
         navigationOptions: {
           header: null

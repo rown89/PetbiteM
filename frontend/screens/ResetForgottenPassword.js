@@ -2,6 +2,7 @@ import React from "react";
 import { Text, StyleSheet, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } from "react-native";
 import { NavigationActions } from 'react-navigation';
 import axios from "axios";
+import _ from "lodash";
 
 export default class ResetForgottenPasswordScreen extends React.Component {
   constructor(props) {
@@ -15,47 +16,55 @@ export default class ResetForgottenPasswordScreen extends React.Component {
     };
   }
 
-  async componentDidMount() {
+  async componentDidMount () {
     _this = this;
     console.log("token arrived to reset page:", this.props.navigation.state.params.token)
     try {
       await axios.get("http://62.75.141.240:9001/apppwreset?token=" + this.props.navigation.state.params.token, {
       })
-        .then(response => {
+        .then((response) => {
           if (response.data.success === true) {
             this.setState({
               isLoading: false,
               username: response.data.username,
               token: this.props.navigation.state.params.token
-            })
+            });
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error)
-        })
+        });
     } catch (err) {
       console.error(err);
     }
   }
 
-  changePass = () => {
-    axios.put("http://62.75.141.240:9001/apppwchange", {
+  async changePass () {
+    try {
+      await axios.put("http://62.75.141.240:9001/apppwchange", {
       username: this.state.username,
       password: this.state.password,
       token: this.state.token
     })
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         if (response.data.success === true) {
-          Alert.alert("Password changed correctly")
+          Alert.alert(
+            "Password changed correctly",
+            [{ text: 'OK', onPress: () => this.props.navigation.navigate('login') }],
+            { cancelable: false }
+            );
         }
       })
-      .catch(error => {
-        console.log(error)
-      })
+      .catch((error) => {
+        console.log(error);
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  render() {
+  render () {
     if (this.state.isLoading) {
       return (
         <View>
@@ -71,16 +80,16 @@ export default class ResetForgottenPasswordScreen extends React.Component {
             underlineColorAndroid="#33B6C0"
             placeholder="New Password" keyboardType="visible-password"
             autoCapitalize="none" autoCorrect={false}
-            onChangeText={password => this.setState({ password })}
+            onChangeText={(password) => this.setState({ password })}
           />
           <TextInput style={styles.LoginTextInput}
             underlineColorAndroid="#33B6C0"
             placeholder="Confirm Password" keyboardType="visible-password"
             autoCapitalize="none" autoCorrect={false}
-            onChangeText={confirmPassword => this.setState({ confirmPassword })}
+            onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
           />
           <TouchableOpacity style={styles.LoginButton}
-            onPress={() => this.changePass }>
+            onPress={() => this.changePass() }>
             <Text style={{ color: "white" }}>
               Reset Password
             </Text>

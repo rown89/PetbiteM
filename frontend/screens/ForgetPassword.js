@@ -22,8 +22,13 @@ export default class ForgotPasswordScreen extends React.Component {
             this.setState({
               errorUsername: response.data.errors.username
             });
-          } else {
-            Alert.alert(JSON.stringify(response.data.msg))
+          }
+          if (response.data.success === true) {
+            Alert.alert(
+              "Recovery successful, check your Email",
+              [{ text: 'OK', onPress: () => this.props.navigation.navigate('login') }],
+              { cancelable: false }
+            );
           }
         })
         .catch((error) => {

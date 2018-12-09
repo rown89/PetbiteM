@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     color: "white"
   },
   forgetPassword: {
+    fontSize: 10,
     marginTop: 5,
     marginBottom: 20,
     color: "#A2A2A2"

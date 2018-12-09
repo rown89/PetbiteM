@@ -18,6 +18,7 @@ export default class ForgotPasswordScreen extends React.Component {
         username: this.state.username,
       })
         .then((response) => {
+          console.log(response.data)
           if (response.data.errors) {
             this.setState({
               errorUsername: response.data.errors.username

@@ -12,31 +12,33 @@ export default class ForgotPasswordScreen extends React.Component {
     };
   }
 
-  async recoveryPress () {
+  recoveryPress = async () => {
     try {
       await axios.post('http://62.75.141.240:9001/passRecovery', {
         username: this.state.username,
       })
         .then((response) => {
-          console.log(response.data)
-          if (response.data.errors) {
+          if (response.data.success === true) {
+            Alert.alert(
+              'Recovery successful',
+              "Check your Email",
+              [
+                { text: 'OK', onPress: () => this.props.navigation.navigate('login') }
+              ],
+              { cancelable: false }
+            )
+          }
+          /* if (response.data.errors) {
             this.setState({
               errorUsername: response.data.errors.username
             });
-          }
-          if (response.data.success === true) {
-            Alert.alert(
-              "Recovery successful, check your Email",
-              [{ text: 'OK', onPress: () => this.props.navigation.navigate('login') }],
-              { cancelable: false }
-            );
-          }
+          } */
         })
         .catch((error) => {
           console.log(error);
         });
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
   }
 
@@ -56,8 +58,8 @@ export default class ForgotPasswordScreen extends React.Component {
             </Text>
           </View>
           <TouchableOpacity style={styles.LoginButton}
-            onPress={() => {
-              this.recoveryPress();
+            onPress={() => { 
+              this.recoveryPress()
               }}>
             <Text style={{ color: "white" }}>
               Reset Password

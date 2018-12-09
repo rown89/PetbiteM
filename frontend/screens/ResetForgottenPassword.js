@@ -5,7 +5,7 @@ import axios from "axios";
 import _ from "lodash";
 
 export default class ResetForgottenPasswordScreen extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       isLoading: true,
@@ -18,7 +18,7 @@ export default class ResetForgottenPasswordScreen extends React.Component {
 
   async componentDidMount () {
     _this = this;
-    console.log("token arrived to reset page:", this.props.navigation.state.params.token)
+    console.log("token arrived to reset page:", this.props.navigation.state.params.token);
     try {
       await axios.get("http://62.75.141.240:9001/apppwreset?token=" + this.props.navigation.state.params.token, {
       })
@@ -32,16 +32,15 @@ export default class ResetForgottenPasswordScreen extends React.Component {
           }
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error);
         });
     } catch (err) {
       console.error(err);
     }
   }
 
-  async changePass () {
-    try {
-      await axios.put("http://62.75.141.240:9001/apppwchange", {
+  changePass = () => {
+    axios.put("http://62.75.141.240:9001/apppwchange", {
       username: this.state.username,
       password: this.state.password,
       token: this.state.token
@@ -50,18 +49,18 @@ export default class ResetForgottenPasswordScreen extends React.Component {
         console.log(response.data);
         if (response.data.success === true) {
           Alert.alert(
+            'Reset Done',
             "Password changed correctly",
-            [{ text: 'OK', onPress: () => this.props.navigation.navigate('login') }],
+            [
+              { text: 'OK', onPress: () => this.props.navigation.navigate('login') }
+            ],
             { cancelable: false }
-            );
+          )
         }
       })
       .catch((error) => {
         console.log(error);
       });
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   render () {

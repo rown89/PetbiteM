@@ -183,9 +183,7 @@ router.get('/apppwreset', (req, res) => {
 });
 
 router.put('/apppwchange', (req, res) => {
-  models.Users.findOne({
-    where: { username: req.body.username, resetPasswordToken: req.body.token },
-  })
+  models.Users.findOne({ where: { username: req.body.username, resetPasswordToken: req.body.token } })
     .then((user) => {
       if (user == null) {
         console.log("This user doesn't exist, cant change password");
@@ -844,7 +842,7 @@ router.post('/profile', passport.authenticate('jwt', { session: false }), (req, 
 router.put('/changePassword', passport.authenticate('jwt', { session: false }), (req, res) => {
   models.Users.findOne({ where: { name: req.user.name } })
     .then((user) => {
-      if (user === null) {
+      if (user == null) {
         console.log("This user doesn't exist, cant change password");
         res.json("This user doesn't exist, cant change password");
       } else {

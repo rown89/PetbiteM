@@ -353,6 +353,7 @@ router.post('/searchProductsAll', passport.authenticate('jwt', { session: false 
   const product = req.body.search;
   models.Products.findAll({
     where: { name: { $like: '%' + product + '%' } },
+    order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
   })

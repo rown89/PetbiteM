@@ -16,7 +16,8 @@ export default class ChangePasswordScreen extends React.Component {
   changePass = () => {
     axios.defaults.headers.common['Authorization'] = "Bearer " + token
     axios.put("http://62.75.141.240:9001/changePassword", {
-      password: this.state.password
+      password: this.state.password,
+      password2: this.state.confirmPassword
     })
       .then(response => {
         if (response.data.success === 200) {

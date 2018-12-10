@@ -49,7 +49,7 @@ module.exports = {
             "error",
             "last"
         ],
-        "complexity": "error",
+        /*"complexity": "error",*/
         "computed-property-spacing": "error",
         "consistent-return": "error",
         "consistent-this": "error",
@@ -110,7 +110,7 @@ module.exports = {
         "max-lines-per-function": "off",
         "max-nested-callbacks": "error",
         "max-params": "error",
-        "max-statements": "error",
+        "max-statements": ["error", 10, { "ignoreTopLevelFunctions": true }],
         "max-statements-per-line": "error",
         "multiline-comment-style": "error",
         "multiline-ternary": "error",
@@ -197,7 +197,7 @@ module.exports = {
         "no-sync": "error",
         "no-tabs": "error",
         "no-template-curly-in-string": "error",
-        "no-ternary": "error",
+        /*"no-ternary": "error",*/
         "no-throw-literal": "error",
         "no-trailing-spaces": "error",
         "no-undef-init": "error",

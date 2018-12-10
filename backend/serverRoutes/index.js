@@ -11,6 +11,7 @@ import keys from './config/keys';
 import validateRegisterInput from '../validation/register';
 import validateLoginInput from '../validation/login';
 import validateRecoveryInput from '../validation/recovery';
+import validatePassChange from '../validation/passchange';
 
 require('babel-polyfill');
 
@@ -184,25 +185,31 @@ router.get('/apppwreset', (req, res) => {
 });
 
 router.put('/apppwchange', (req, res) => {
-  models.Users.findOne({ where: { username: req.body.username, resetPasswordToken: req.body.token } })
-    .then((user) => {
-      if (user == null) {
-        console.log("This user doesn't exist, cant change password");
-        res.json("This user doesn't exist, cant change password");
-      } else {
-        user.update({
-          password: req.body.password,
-          resetPasswordExpires: null,
-          resetPasswordToken: null,
-        })
-          .then(() => {
-            res.status(200).send({
-              success: true,
-              message: 'Password changed correctly',
+  const { errors, isValid } = validatePassChange(req.body);
+  // Check Validation
+  if (!isValid) {
+    res.send({ errors });
+  } else {
+    models.Users.findOne({ where: { username: req.body.username, resetPasswordToken: req.body.token } })
+      .then((user) => {
+        if (user == null) {
+          console.log("This user doesn't exist, cant change password");
+          res.json("This user doesn't exist, cant change password");
+        } else {
+          user.update({
+            password: req.body.password,
+            resetPasswordExpires: null,
+            resetPasswordToken: null,
+          })
+            .then(() => {
+              res.status(200).send({
+                success: true,
+                message: 'Password changed correctly',
+              });
             });
-          });
-      }
-    });
+        }
+      });
+    }
 });
 
 // Home
@@ -669,7 +676,7 @@ router.post('/mostUsedAminoAcids', passport.authenticate('jwt', { session: false
     attributes: [[Sequelize.fn('count', Sequelize.col('amino_acid_id')), 'Aminocount']],
     having: Sequelize.where(Sequelize.fn('COUNT', Sequelize.col('amino_acid_id')), '>=', 1),
     include: [{ attributes: ['id', 'name'], model: models.Amino_acids }],
-    group: ['amino_acid.id'],
+    group: ['amino_acid.id']
   })
     .then((Amino) => {
       res.send(Amino);
@@ -862,25 +869,31 @@ router.post('/profile', passport.authenticate('jwt', { session: false }), (req, 
 
 // Change Password in Settings
 router.put('/changePassword', passport.authenticate('jwt', { session: false }), (req, res) => {
-  models.Users.findOne({ where: { name: req.user.name } })
-    .then((user) => {
-      if (user == null) {
-        console.log("This user doesn't exist, cant change password");
-        res.json("This user doesn't exist, cant change password");
-      } else {
-        user.update({
-          password: req.body.password,
-          resetPasswordExpires: null,
-          resetPasswordToken: null,
-        })
-          .then(() => {
-            res.status(200).send({
-              success: true,
-              message: 'Password changed correctly',
+  const { errors, isValid } = validatePassChange(req.body);
+  // Check Validation
+  if (!isValid) {
+    res.send({ errors });
+  } else {
+    models.Users.findOne({ where: { name: req.user.name } })
+      .then((user) => {
+        if (user == null) {
+          console.log("This user doesn't exist, cant change password");
+          res.json("This user doesn't exist, cant change password");
+        } else {
+          user.update({
+            password: req.body.password,
+            resetPasswordExpires: null,
+            resetPasswordToken: null,
+          })
+            .then(() => {
+              res.status(200).send({
+                success: true,
+                message: 'Password changed correctly',
+              });
             });
-          });
-      }
-    });
+        }
+      });
+  }
 });
 
 module.exports = router;

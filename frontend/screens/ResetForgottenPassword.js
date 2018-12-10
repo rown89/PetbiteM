@@ -43,6 +43,7 @@ export default class ResetForgottenPasswordScreen extends React.Component {
     axios.put("http://62.75.141.240:9001/apppwchange", {
       username: this.state.username,
       password: this.state.password,
+      password2: this.state.confirmPassword,
       token: this.state.token
     })
       .then((response) => {

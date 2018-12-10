@@ -6,11 +6,11 @@ module.exports = function validateRegisterInput(data) {
 
   data.name = !isEmpty(data.name) ? data.name : '';
   data.lastname = !isEmpty(data.lastname) ? data.lastname : '';
-  data.date = !isEmpty(data.date) ? data.date : ''
-  data.gender = !isEmpty(data.gender) ? data.gender : ''
-  data.username = !isEmpty(data.username) ? data.username : ''
-  data.password = !isEmpty(data.password) ? data.password : ''
-  data.password2 = !isEmpty(data.password2) ? data.password2 : ''
+  data.date = !isEmpty(data.date) ? data.date : '';
+  data.gender = !isEmpty(data.gender) ? data.gender : '';
+  data.username = !isEmpty(data.username) ? data.username : '';
+  data.password = !isEmpty(data.password) ? data.password : '';
+  data.password2 = !isEmpty(data.password2) ? data.password2 : '';
 
   // Name
   if (!Validator.isLength(data.name, { min: 4, max: 20 })) {

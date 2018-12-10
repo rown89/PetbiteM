@@ -18,6 +18,7 @@ const Op = Sequelize.Op;
 const operatorsAliases = {
   $gt: Op.gt,
   $like: Op.like,
+  $iLike: Op.iLike
 };
 
 const router = express.Router();
@@ -352,7 +353,7 @@ router.post('/productDetailVitamins', passport.authenticate('jwt', { session: fa
 router.post('/searchProductsAll', passport.authenticate('jwt', { session: false }), (req, res) => {
   const product = req.body.search;
   models.Products.findAll({
-    where: { name: { $like: '%' + product + '%' } },
+    where: { name: { $iLike: '%' + product + '%' } },
     order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
@@ -368,7 +369,7 @@ router.post('/searchProductsAll', passport.authenticate('jwt', { session: false 
 router.post('/searchProductsStandard', passport.authenticate('jwt', { session: false }), (req, res) => {
   const product = req.body.search;
   models.Products.findAll({
-    where: { name: { $like: '%' + product + '%' }, diet_id: 1 },
+    where: { name: { $iLike: '%' + product + '%' }, diet_id: 1 },
     order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
@@ -384,7 +385,7 @@ router.post('/searchProductsStandard', passport.authenticate('jwt', { session: f
 router.post('/searchProductsDiabets', passport.authenticate('jwt', { session: false }), (req, res) => {
   const product = req.body.search;
   models.Products.findAll({
-    where: { name: { $like: '%' + product + '%' }, diet_id: 8 },
+    where: { name: { $iLike: '%' + product + '%' }, diet_id: 8 },
     order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
@@ -400,7 +401,7 @@ router.post('/searchProductsDiabets', passport.authenticate('jwt', { session: fa
 router.post('/searchProductsHepatic', passport.authenticate('jwt', { session: false }), (req, res) => {
   const product = req.body.search;
   models.Products.findAll({
-    where: { name: { $like: '%' + product + '%' }, diet_id: 2 },
+    where: { name: { $iLike: '%' + product + '%' }, diet_id: 2 },
     order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
@@ -416,7 +417,7 @@ router.post('/searchProductsHepatic', passport.authenticate('jwt', { session: fa
 router.post('/searchProductsIntestinal', passport.authenticate('jwt', { session: false }), (req, res) => {
   const product = req.body.search;
   models.Products.findAll({
-    where: { name: { $like: '%' + product + '%' }, diet_id: 5 },
+    where: { name: { $iLike: '%' + product + '%' }, diet_id: 5 },
     order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
@@ -432,7 +433,7 @@ router.post('/searchProductsIntestinal', passport.authenticate('jwt', { session:
 router.post('/searchProductsRenal', passport.authenticate('jwt', { session: false }), (req, res) => {
   const product = req.body.search;
   models.Products.findAll({
-    where: { name: { $like: '%' + product + '%' }, diet_id: 7 },
+    where: { name: { $iLike: '%' + product + '%' }, diet_id: 7 },
     order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
@@ -448,7 +449,7 @@ router.post('/searchProductsRenal', passport.authenticate('jwt', { session: fals
 router.post('/searchProductsSterilised', passport.authenticate('jwt', { session: false }), (req, res) => {
   const product = req.body.search;
   models.Products.findAll({
-    where: { name: { $like: '%' + product + '%' }, diet_id: 6 },
+    where: { name: { $iLike: '%' + product + '%' }, diet_id: 6 },
     order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
@@ -464,7 +465,7 @@ router.post('/searchProductsSterilised', passport.authenticate('jwt', { session:
 router.post('/searchProductsUrinary', passport.authenticate('jwt', { session: false }), (req, res) => {
   const product = req.body.search;
   models.Products.findAll({
-    where: { name: { $like: '%' + product + '%' }, diet_id: 3 },
+    where: { name: { $iLike: '%' + product + '%' }, diet_id: 3 },
     order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
@@ -480,7 +481,7 @@ router.post('/searchProductsUrinary', passport.authenticate('jwt', { session: fa
 router.post('/searchProductsWeight%20Control', passport.authenticate('jwt', { session: false }), (req, res) => {
   const product = req.body.search;
   models.Products.findAll({
-    where: { name: { $like: '%' + product + '%' }, diet_id: 10 },
+    where: { name: { $iLike: '%' + product + '%' }, diet_id: 10 },
     order: [['name', 'ASC']],
     attributes: ['id', 'name'],
     include: [models.Brands],
@@ -497,7 +498,7 @@ router.post('/searchProductsWeight%20Control', passport.authenticate('jwt', { se
 router.post('/searchElementsAminoacids', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { element } = req.body;
   models.Amino_acids.findAll({
-    where: { name: { $like: '%' + element + '%' } },
+    where: { name: { $iLike: '%' + element + '%' } },
     attributes: ['id', 'name'],
   })
     .then((Aminoacids) => {
@@ -511,7 +512,7 @@ router.post('/searchElementsAminoacids', passport.authenticate('jwt', { session:
 router.post('/searchElementsAnalytical-Compositions', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { element } = req.body;
   models.Anal_comps.findAll({
-    where: { name: { $like: '%' + element + '%' } },
+    where: { name: { $iLike: '%' + element + '%' } },
     attributes: ['id', 'name'],
   })
     .then((Anal) => {
@@ -525,7 +526,7 @@ router.post('/searchElementsAnalytical-Compositions', passport.authenticate('jwt
 router.post('/searchElementsIngredients', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { element } = req.body;
   models.Ingredients.findAll({
-    where: { name: { $like: '%' + element + '%' } },
+    where: { name: { $iLike: '%' + element + '%' } },
     attributes: ['id', 'name'],
   })
     .then((ingredients) => {
@@ -539,7 +540,7 @@ router.post('/searchElementsIngredients', passport.authenticate('jwt', { session
 router.post('/searchElementsMinerals', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { element } = req.body;
   models.Minerals.findAll({
-    where: { name: { $like: '%' + element + '%' } },
+    where: { name: { $iLike: '%' + element + '%' } },
     attributes: ['id', 'name'],
   })
     .then((Minerals) => {
@@ -553,7 +554,7 @@ router.post('/searchElementsMinerals', passport.authenticate('jwt', { session: f
 router.post('/searchElementsVitamins', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { element } = req.body;
   models.Vitamins.findAll({
-    where: { name: { $like: '%' + element + '%' } },
+    where: { name: { $iLike: '%' + element + '%' } },
     attributes: ['id', 'name'],
   })
     .then((Vitamins) => {
@@ -567,7 +568,7 @@ router.post('/searchElementsVitamins', passport.authenticate('jwt', { session: f
 router.post('/searchElementsPlants', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { element } = req.body;
   models.Plants.findAll({
-    where: { name: { $like: '%' + element + '%' } },
+    where: { name: { $iLike: '%' + element + '%' } },
     attributes: ['id', 'name'],
   })
     .then((Plants) => {

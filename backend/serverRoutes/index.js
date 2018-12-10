@@ -759,7 +759,9 @@ router.post('/selectedMostUsedAmino', passport.authenticate('jwt', { session: fa
   const { elementID } = req.body;
   models.Amino_acids_recipes.findAll({
     where: { amino_acid_id: elementID },
-    attributes: ['id', 'product_id'],
+    attributes: ['id', 'product_id','amount'],
+    order: [[Sequelize.fn('max', Sequelize.col('amount')), 'DESC']],
+    group: ['amino_acids_recipes.id']
   })
     .then((Amino) => {
       res.send(Amino);
@@ -773,7 +775,9 @@ router.post('/selectedMostUsedAnal', passport.authenticate('jwt', { session: fal
   const { elementID } = req.body;
   models.Anal_comps_recipes.findAll({
     where: { anal_comp_id: elementID },
-    attributes: ['id', 'product_id'],
+    attributes: ['id', 'product_id','amount'],
+    order: [[Sequelize.fn('max', Sequelize.col('amount')), 'DESC']],
+    group: ['anal_comps_recipes.id']
   })
     .then((Anal) => {
       res.send(Anal);
@@ -787,7 +791,9 @@ router.post('/selectedMostUsedIngr', passport.authenticate('jwt', { session: fal
   const { elementID } = req.body;
   models.Ingredients_recipes.findAll({
     where: { ingredient_id: elementID },
-    attributes: ['id', 'product_id'],
+    attributes: ['id', 'product_id', 'amount'],
+    order: [[Sequelize.fn('max', Sequelize.col('amount')), 'DESC']],
+    group: ['ingredients_recipes.id']
   })
     .then((Ingredient) => {
       res.send(Ingredient);
@@ -801,7 +807,9 @@ router.post('/selectedMostUsedMineral', passport.authenticate('jwt', { session: 
   const { elementID } = req.body;
   models.Minerals_recipes.findAll({
     where: { mineral_id: elementID },
-    attributes: ['id', 'product_id'],
+    attributes: ['id', 'product_id', 'amount'],
+    order: [[Sequelize.fn('max', Sequelize.col('amount')), 'DESC']],
+    group: ['minerals_recipes.id']
   })
     .then((Mineral) => {
       res.send(Mineral);
@@ -815,7 +823,9 @@ router.post('/selectedMostUsedVitamin', passport.authenticate('jwt', { session: 
   const { elementID } = req.body;
   models.Vitamins_recipes.findAll({
     where: { vitamin_id: elementID },
-    attributes: ['id', 'product_id'],
+    attributes: ['id', 'product_id', 'amount'],
+    order: [[Sequelize.fn('max', Sequelize.col('amount')), 'DESC']],
+    group: ['vitamins_recipes.id']
   })
     .then((Vitamin) => {
       res.send(Vitamin);
@@ -829,7 +839,9 @@ router.post('/selectedMostUsedPlant', passport.authenticate('jwt', { session: fa
   const { elementID } = req.body;
   models.Plants_recipes.findAll({
     where: { plant_id: elementID },
-    attributes: ['id', 'product_id'],
+    attributes: ['id', 'product_id', 'amount'],
+    order: [[Sequelize.fn('max', Sequelize.col('amount')), 'DESC']],
+    group: ['plants_recipes.id']
   })
     .then((Plant) => {
       res.send(Plant);

@@ -13,6 +13,8 @@ export default class ResetForgottenPasswordScreen extends React.Component {
       username: "",
       password: "",
       confirmPassword: "",
+      errorPassword: "",
+      errorPassword2: "",
     };
   }
 
@@ -47,7 +49,6 @@ export default class ResetForgottenPasswordScreen extends React.Component {
       token: this.state.token
     })
       .then((response) => {
-        console.log(response.data);
         if (response.data.success === true) {
           Alert.alert(
             'Reset Done',
@@ -57,6 +58,11 @@ export default class ResetForgottenPasswordScreen extends React.Component {
             ],
             { cancelable: false }
           )
+        } else {
+          this.setState({
+            errorPassword: response.data.errors.password,
+            errorPassword2: response.data.errors.password2,
+          })
         }
       })
       .catch((error) => {
@@ -82,12 +88,22 @@ export default class ResetForgottenPasswordScreen extends React.Component {
             autoCapitalize="none" autoCorrect={false}
             onChangeText={(password) => this.setState({ password })}
           />
+          <View style={styles.errorView}>
+            <Text style={styles.errorState}>
+              {this.state.errorPassword}
+            </Text>
+          </View>
           <TextInput style={styles.LoginTextInput}
             underlineColorAndroid="#33B6C0"
             placeholder="Confirm Password" keyboardType="visible-password"
             autoCapitalize="none" autoCorrect={false}
             onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
           />
+          <View style={styles.errorView}>
+            <Text style={styles.errorState}>
+              {this.state.errorPassword2}
+            </Text>
+          </View>
           <TouchableOpacity style={styles.LoginButton}
             onPress={() => this.changePass() }>
             <Text style={{ color: "white" }}>

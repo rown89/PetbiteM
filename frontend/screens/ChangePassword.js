@@ -22,7 +22,6 @@ export default class ChangePasswordScreen extends React.Component {
       password2: this.state.confirmPassword
     })
       .then(response => {
-        console.log(response.data)
         if (response.data.success === true) {
           Alert.alert(
             'Ok',
@@ -54,18 +53,22 @@ export default class ChangePasswordScreen extends React.Component {
             autoCapitalize="none" autoCorrect={false}
             onChangeText={password => this.setState({ password })}
           />
-          <Text style={styles.errorState}>
-            {this.state.errorPassword}
-          </Text>
+          <View style={styles.errorView}>
+            <Text style={styles.errorState}>
+              {this.state.errorPassword}
+            </Text>
+          </View>
           <TextInput style={styles.LoginTextInput}
             underlineColorAndroid="#33B6C0"
             placeholder="Confirm Password" secureTextEntry
             autoCapitalize="none" autoCorrect={false}
             onChangeText={confirmPassword => this.setState({ confirmPassword })}
           />
-          <Text style={styles.errorState}>
-            {this.state.errorPassword2}
-          </Text>
+          <View style={styles.errorView}>
+            <Text style={styles.errorState}>
+              {this.state.errorPassword2}
+            </Text>
+          </View>
           <TouchableOpacity style={styles.LoginButton}
             onPress={() => this.changePass() }>
             <Text style={{ color: "white" }}>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } from "react-native";
+import { Text, StyleSheet, View, TextInput, TouchableOpacity, Alert } from "react-native";
 import { NavigationActions } from 'react-navigation';
 import axios from "axios";
 
@@ -9,19 +9,34 @@ export default class ChangePasswordScreen extends React.Component {
     this.state = {
       password: "",
       confirmPassword: "",
-      updatePassword : false
+      errorPassword: "",
+      errorPassword2: ""
+
     };
   }
 
   changePass = () => {
-    axios.defaults.headers.common['Authorization'] = "Bearer " + token
+    // axios.defaults.headers.common['Authorization'] = "Bearer " + token
     axios.put("http://62.75.141.240:9001/changePassword", {
       password: this.state.password,
       password2: this.state.confirmPassword
     })
       .then(response => {
-        if (response.data.success === 200) {
-          Alert.alert("Password changed correctly")
+        console.log(response.data)
+        if (response.data.success === true) {
+          Alert.alert(
+            'Ok',
+            "Password changed correctly",
+            [
+              { text: 'OK', onPress: () => this.props.navigation.navigate('login') }
+            ],
+            { cancelable: false }
+          )
+        } else {
+          this.setState({
+            errorPassword: response.data.errors.password,
+            errorPassword2: response.data.errors.password2,
+          })
         }
       })
       .catch(error => {
@@ -39,14 +54,20 @@ export default class ChangePasswordScreen extends React.Component {
             autoCapitalize="none" autoCorrect={false}
             onChangeText={password => this.setState({ password })}
           />
+          <Text style={styles.errorState}>
+            {this.state.errorPassword}
+          </Text>
           <TextInput style={styles.LoginTextInput}
             underlineColorAndroid="#33B6C0"
             placeholder="Confirm Password" secureTextEntry
             autoCapitalize="none" autoCorrect={false}
             onChangeText={confirmPassword => this.setState({ confirmPassword })}
           />
+          <Text style={styles.errorState}>
+            {this.state.errorPassword2}
+          </Text>
           <TouchableOpacity style={styles.LoginButton}
-            onPress={() => this.changePass }>
+            onPress={() => this.changePass() }>
             <Text style={{ color: "white" }}>
               Change Password
             </Text>

@@ -70,8 +70,7 @@ export default class LoginScreen extends React.Component {
       if (response.data.success === true){
         _this.saveItem('id_token', response.data.token)
         _this.props.navigation.navigate({routeName: 'hometabs'});
-      }
-      if (response.data.errors){
+      } else {
         this.setState({
           errorUsername: response.data.errors.username,
           errorPassword: response.data.errors.password

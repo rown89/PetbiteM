@@ -72,6 +72,7 @@ router.post('/login', (req, res) => {
     .then((user) => {
       if (!user) {
         errors.username = 'User not found';
+        errors.password = 'Check your Password';
         res.send({ errors });
       } else {
         if (user.validPassword(password)) {
@@ -886,14 +887,11 @@ router.put('/changePassword', passport.authenticate('jwt', { session: false }), 
             resetPasswordToken: null,
           })
             .then(() => {
-              res.status(200).send({
-                success: true,
-                message: 'Password changed correctly',
-              });
+              res.status(200).send({ success: true, message: 'Password changed correctly' });
             });
         }
       });
-  }
+    }
 });
 
 module.exports = router;

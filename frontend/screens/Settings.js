@@ -15,7 +15,7 @@ export default class SettingsScreen extends React.Component {
 
   componentDidMount () {
     AsyncStorage.getItem('id_token').then((token) => {
-      axios.defaults.headers.common['Authorization'] = "Bearer " + token
+      axios.defaults.headers.common['Authorization'] = "Bearer " + token;
       axios.post("http://62.75.141.240:9001/profile", {
       })
         .then((response) => {
@@ -33,7 +33,7 @@ export default class SettingsScreen extends React.Component {
   async userLogout () {
     try {
       await AsyncStorage.removeItem('id_token');
-      this.props.navigation.navigate({routeName: 'login'});
+      this.props.navigation.navigate({ routeName: 'login' });
     } catch (error) {
       console.log('AsyncStorage error: ' + error.message);
     }
@@ -56,10 +56,10 @@ export default class SettingsScreen extends React.Component {
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>
         </View>
-        <View style={{justifyContent: "center", alignItems: "center"}}>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Image
             style={styles.avatarImage}
-            source={{ uri: 'http://www.danilomongelli.it/pgb/assets/img/avatarTest.png' }}
+            source={{ uri: 'http://www.petbite.it/assets/img/avatarTest.png' }}
           />
         </View>
         <View style={styles.dataContainer}>

@@ -1,7 +1,6 @@
 import React from "react";
 import { TextInput,Text,StyleSheet,View,TouchableOpacity,KeyboardAvoidingView, Image, AsyncStorage, Platform, Linking  } from "react-native";
 import { createStackNavigator, createBottomTabNavigator } from "react-navigation";
-//import { NavigationNavigator } from 'react-navigation'
 import { NavigationActions } from 'react-navigation';
 import axios from "axios";
 
@@ -15,6 +14,15 @@ export default class LoginScreen extends React.Component {
       errorPassword: ""
     };
     const { navigate } = this.props.navigation;
+  }
+
+  componentWillMount() {
+    const login = AsyncStorage.getItem('id_token');
+    if (login !== null) {
+      this.props.navigation.navigate({ routeName:'hometabs' })
+    } else {
+      console.log('no token found')
+    }
   }
 
   componentDidMount() {
@@ -75,7 +83,6 @@ export default class LoginScreen extends React.Component {
           errorUsername: response.data.errors.username,
           errorPassword: response.data.errors.password
         })
-        console.log("errors:", response.data)
       }
     })
     .catch(error => 

@@ -72,7 +72,6 @@ router.post('/login', (req, res) => {
     .then((user) => {
       if (!user) {
         errors.username = 'User not found';
-        errors.password = 'Check your Password';
         res.send({ errors });
       } else {
         if (user.validPassword(password)) {
@@ -93,7 +92,7 @@ router.post('/login', (req, res) => {
           );
         } else {
           errors.password = 'Password incorrect';
-          res.status(404).send({ errors });
+          res.send({ errors });
         }
       }
     })

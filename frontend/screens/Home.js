@@ -29,7 +29,6 @@ export default class HomeScreen extends React.Component {
           this.setState({
             isLoading: false,
             brand: response.data,
-            visibleBrandsList: true
           });
         })
         .catch(error => {
@@ -43,7 +42,7 @@ export default class HomeScreen extends React.Component {
       this.setState({
         visibleBrandsList: false
       })
-      axios.post("http://62.75.141.240:9001/brandSearch", {
+      axios.post("http://62.75.141.240:9001/searchBrands", {
         search: this.state.searchQuery
       })
         .then(response => {
@@ -122,26 +121,27 @@ export default class HomeScreen extends React.Component {
           }
         />}
 
-        {!this.state.visibleBrandsList && 
-        <FlatList
-          data={this.state.searchResults}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) =>
-            <View style={styles.compositionListContainer}>
-              <View style={styles.productsContainer}>
+        {!this.state.visibleBrandsList &&
+          <FlatList
+            data={this.state.searchResults}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) =>
+              <View style={styles.brandsContainer}>
                 <TouchableOpacity
                   onPress={() => { this.setBrandToNavigator(item.id, item.name) }}
                 >
-                  <Image source={{ uri: item.image }}/>
-                  <Text style={{ color: "#283B47" }}>
-                    {item.name}
-                  </Text>
+                  <View style={styles.brandsSearchList}>
+                    <Image style={styles.brandLogoPreview}
+                      source={{ uri: item.image }}
+                    />
+                    <Text style={styles.brandName}>
+                      {item.name}
+                    </Text>
+                  </View>
                 </TouchableOpacity>
               </View>
-            </View>
-          }
-        />}
-
+            }
+          />}
       </View>
     )
   }
@@ -225,16 +225,22 @@ const styles = StyleSheet.create({
     height: 4,
     backgroundColor: "#191A1D"
   },
-  compositionListContainer: {
+  brandsContainer: {
     flex: 1,
+    backgroundColor: "#FFFFFF",
+  },
+  brandsSearchList: {
     flexDirection: "row",
     flexWrap: "nowrap",
-    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#FFFFFF"
+    padding: 10,
   },
-  productsContainer: {
-    flex: 4,
-    padding: 15
+  brandLogoPreview: {
+    width: 50,
+    height: 50,
   },
+  brandName: {
+    paddingLeft: 15,
+    color: "#283B47",
+  }
 });

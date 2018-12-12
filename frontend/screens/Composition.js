@@ -84,7 +84,7 @@ export default class CompositionScreen extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, marginTop: getStatusBarHeight() }}>
+      <View style={styles.mainContainer}>
         <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
           <View style={styles.searchForm}>
             <TextInput style={styles.searchInput}
@@ -222,8 +222,9 @@ export default class CompositionScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  searchScreen: {
-    backgroundColor: "#FEFEFE"
+  mainContainer:{
+    flex: 1,
+    marginTop: getStatusBarHeight(),
   },
   searchForm: {
     width: "100%",

@@ -25,7 +25,7 @@ export default class SettingsScreen extends React.Component {
           });
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error);
         });
     });
   }
@@ -77,8 +77,8 @@ export default class SettingsScreen extends React.Component {
           <TouchableOpacity style={styles.changepw}
             onPress={() => this.userChangePw()}
           >
-          <Text style={{color: "#FFFFFF", fontWeight: "bold"}}>
-            Change Password
+            <Text style={{ color: "#FFFFFF", fontWeight: "bold" }}>
+              Change Password
           </Text>
           </TouchableOpacity>
         </View>
@@ -86,13 +86,13 @@ export default class SettingsScreen extends React.Component {
           <TouchableOpacity style={styles.logout}
             onPress={() => this.userLogout()}
           >
-          <Text style={{ color: "#FFFFFF", fontWeight: "bold" }}>
-            Logout
+            <Text style={{ color: "#FFFFFF", fontWeight: "bold" }}>
+              Logout
           </Text>
           </TouchableOpacity>
         </View>
       </View>
-    )
+    );
   }
 }
 
@@ -126,6 +126,7 @@ export default class SettingsScreen extends React.Component {
     },
     dataContainer: {
       flex: 1,
+      alignItems: "center",
       paddingTop: 100,
       paddingLeft: 40,
       paddingRight: 40,

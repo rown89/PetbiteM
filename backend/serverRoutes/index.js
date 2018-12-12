@@ -225,6 +225,21 @@ router.post('/home', passport.authenticate('jwt', { session: false }), (req, res
     });
 });
 
+router.post('/searchBrands', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const brands = req.body.search;
+  models.Brands.findAll({
+    where: { name: { $iLike: '%' + brands + '%' } },
+    order: [['name', 'ASC']],
+    attributes: ['id', 'name', 'image'],
+  })
+    .then((brandsResults) => {
+      res.send(brandsResults);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 router.post('/productsList', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { idBrand } = req.body;
   const resp = req.body.selectedProductsByComposition;

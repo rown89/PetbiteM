@@ -2,6 +2,7 @@ import React from "react";
 import { Text, StyleSheet, View, TextInput, KeyboardAvoidingView, FlatList, ActivityIndicator, Image, TouchableOpacity, AsyncStorage } from "react-native";
 import { NavigationActions } from 'react-navigation';
 import axios from "axios";
+import _ from "lodash";
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 //Home Tab Area
@@ -11,8 +12,11 @@ export default class HomeScreen extends React.Component {
     this.state = {
       isLoading: true,
       brand: [],
+      searchResults: [],
       selectedBrand: null,
       isBrandSelected: false,
+      searchQuery: null,
+      visibleBrandsList: true,
     };
   }
 
@@ -24,13 +28,42 @@ export default class HomeScreen extends React.Component {
         .then(response => {
           this.setState({
             isLoading: false,
-            brand: response.data
+            brand: response.data,
+            visibleBrandsList: true
           });
         })
         .catch(error => {
           console.log(error)
         });
     })
+  };
+
+  remoteRequest = _.debounce(() => {
+    if (!!this.state.searchQuery && this.state.searchQuery.trim().length > 1) {
+      this.setState({
+        visibleBrandsList: false
+      })
+      axios.post("http://62.75.141.240:9001/brandSearch", {
+        search: this.state.searchQuery
+      })
+        .then(response => {
+          this.setState({
+            isLoading: false,
+            searchResults: response.data
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {this.setState({
+      visibleBrandsList: true
+    })}
+  }, 250);
+
+  handleSearch = searchedText => {
+    this.setState({
+      searchQuery: searchedText.toLowerCase(),
+    }, () => this.remoteRequest());
   };
 
   setBrandToNavigator = (id, name)=> {
@@ -48,15 +81,19 @@ export default class HomeScreen extends React.Component {
     }
 
     return (
-      <KeyboardAvoidingView style={styles.mainContainer}>
-        <View style={styles.searchForm}>
-          <TextInput style={styles.SearchInput}
-            placeholder="Search Brand's"
-            underlineColorAndroid={"#FFFFFF"}
-            placeholderTextColor={"#bfbfbf"}
-          />
+      <View style={styles.mainContainer}>
+        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+          <View style={styles.searchForm}>
+            <TextInput style={styles.searchInput}
+              onChangeText={this.handleSearch}
+              placeholder="Search Composition's"
+              autoCapitalize="none" autoCorrect={false}
+              underlineColorAndroid={"#FFFFFF"} placeholderTextColor={"#bfbfbf"}
+            />
+          </View>
         </View>
 
+      {this.state.visibleBrandsList &&
         <FlatList
           data={this.state.brand}
           horizontal={false}
@@ -83,8 +120,29 @@ export default class HomeScreen extends React.Component {
               <View style={styles.cardBottomLine}></View>
             </TouchableOpacity>
           }
-        />
-      </KeyboardAvoidingView>
+        />}
+
+        {!this.state.visibleBrandsList && 
+        <FlatList
+          data={this.state.searchResults}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({ item }) =>
+            <View style={styles.compositionListContainer}>
+              <View style={styles.productsContainer}>
+                <TouchableOpacity
+                  onPress={() => { this.setBrandToNavigator(item.id, item.name) }}
+                >
+                  <Image source={{ uri: item.image }}/>
+                  <Text style={{ color: "#283B47" }}>
+                    {item.name}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          }
+        />}
+
+      </View>
     )
   }
 }
@@ -97,14 +155,17 @@ const styles = StyleSheet.create({
   searchForm: {
     width: "100%",
     height: 60,
-    elevation: 3,
-    backgroundColor: "#191A1D",
+    padding: 10,
+    marginBottom: 10,
+    flexDirection: "row",
+    flexGrow: 3,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10
+    backgroundColor: "#191A1D",
+    elevation: 4
   },
-  SearchInput: {
-    width: "95%",
+  searchInput: {
+    flex: 4,
     height: 45,
     padding: 10,
     borderRadius: 3,
@@ -163,5 +224,17 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 4,
     backgroundColor: "#191A1D"
+  },
+  compositionListContainer: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF"
+  },
+  productsContainer: {
+    flex: 4,
+    padding: 15
   },
 });

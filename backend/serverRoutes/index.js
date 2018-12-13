@@ -642,7 +642,7 @@ router.post('/selectedElementsIngredients', passport.authenticate('jwt', { sessi
   models.Ingredients_recipes.findAll({
     where: { ingredient_id: elementID },
     attributes: ['id', 'product_id'],
-    order: [['name', 'ASC']],
+    include: [{ attributes: ['id', 'name'], order: [['name', 'ASC']], model: models.Ingredients }]
   })
     .then((ingredients) => {
       res.send(ingredients);

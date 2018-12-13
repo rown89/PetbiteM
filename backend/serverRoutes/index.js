@@ -574,7 +574,7 @@ router.post('/searchElementsMinerals', passport.authenticate('jwt', { session: f
     })
     .catch((err) => {
       console.log(err);
-    });;
+    });
 });
 
 router.post('/searchElementsVitamins', passport.authenticate('jwt', { session: false }), (req, res) => {

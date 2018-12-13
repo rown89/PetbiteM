@@ -47,7 +47,7 @@ export default class SingupScreen extends React.Component {
       .then((response) => {
         if (response.data.success === true) {
           _this.saveItem('id_token', response.data.token),
-          _this.props.navigation.navigate({ routeName: 'hometabs' });
+          _this.props.navigation.navigate({ routeName: 'login' });
         }
         if (response.data.errors){
           this.setState({

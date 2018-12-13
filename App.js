@@ -4,7 +4,7 @@ import { Font } from 'expo';
 import HomeStack from "./frontend/screens/navRoutes/HomeStack";
 
 export default class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
   }
 
@@ -32,6 +32,5 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //fontFamily: "Google Sans"
   }
 });

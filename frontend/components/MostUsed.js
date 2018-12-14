@@ -42,8 +42,10 @@ export default class MostUsed extends React.Component {
           </View>
         );
       });
+
       return x;
     }
+
     if (this.props.type === "Analytical Comps") {
       const x = this.state.mostUsedList.map((item, id) => {
         return (
@@ -57,8 +59,10 @@ export default class MostUsed extends React.Component {
           </View>
         );
       });
+
       return x;
     }
+
     if (this.props.type === "Ingredients") {
       const x = this.state.mostUsedList.map((item, id) => {
         return (
@@ -72,8 +76,10 @@ export default class MostUsed extends React.Component {
           </View>
         );
       });
+
       return x;
     }
+
     if (this.props.type === "Minerals") {
       const x = this.state.mostUsedList.map((item, id) => {
         return (
@@ -87,8 +93,10 @@ export default class MostUsed extends React.Component {
           </View>
         );
       });
+
       return x;
     }
+
     if (this.props.type === "Vitamins") {
       const x = this.state.mostUsedList.map((item, id) => {
         return (
@@ -102,9 +110,11 @@ export default class MostUsed extends React.Component {
           </View>
         );
       });
+
       return x;
     }
-    if (this.props.type === "Plants"){
+
+    if (this.props.type === "Plants") {
       const x = this.state.mostUsedList.map((item, id) => {
         return (
           <View style={styles.mostUsedItem} key={id}>
@@ -117,6 +127,7 @@ export default class MostUsed extends React.Component {
           </View>
         );
       });
+
       return x;
     }
   }

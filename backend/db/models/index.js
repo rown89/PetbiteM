@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize';
+import keys from '../../serverRoutes/config/keys';
 
-const sequelize = new Sequelize('petbitedb', 'rown', 'scrotolol', {
+const sequelize = new Sequelize('petbitedb', 'rown', keys.postgresPass, {
   host: '62.75.141.240',
   dialect: 'postgres',
   pool: {

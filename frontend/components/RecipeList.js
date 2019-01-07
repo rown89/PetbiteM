@@ -60,7 +60,7 @@ export default class RecipeList extends React.Component {
   }
 
   chartReader() {
-    return this.state.recipe.filter(item => {
+    return this.state.recipe.filter((item) => {
       return item.amount >= 0.1
     })
       .map((element, id) => {
@@ -71,7 +71,7 @@ export default class RecipeList extends React.Component {
           if (unit !== null) { 
             return unit.name; 
           }
-          else { 
+          else {
             return ""; 
           }
         };

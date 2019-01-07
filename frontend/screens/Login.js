@@ -17,8 +17,11 @@ export default class LoginScreen extends React.Component {
   }
 
   componentWillMount() {
-    const login = AsyncStorage.getItem('id_token');
-    if (login !== null) {
+    const login = AsyncStorage.getItem('id_token')
+    .then((data) => {
+      console.log("data:", data);
+    });
+    if (!login) {
       this.props.navigation.navigate({ routeName:'hometabs' })
     } else {
       console.log('no token found')

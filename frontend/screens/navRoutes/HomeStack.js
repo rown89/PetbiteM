@@ -2,7 +2,6 @@ import React from "react";
 import { AsyncStorage } from "react-native";
 import { createStackNavigator, createBottomTabNavigator } from "react-navigation";
 import { NavigationActions } from 'react-navigation';
-// import { NavigationNavigator } from 'react-navigation'
 import LoginScreen from "../Login";
 import SingupScreen from "../Singup";
 import TabsStack from "../navRoutes/tabs.routes";

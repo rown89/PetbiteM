@@ -1,4 +1,4 @@
 module.exports = {
-  secretOrKey: 'pietroèdibisceglie',
-  mailSecret: '#l4Bj03z',
+  secretOrKey: 'sonoraèunaclcpazza',
+  mailSecret: 'mh3q$64Z',
 };

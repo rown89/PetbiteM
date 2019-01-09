@@ -19,6 +19,7 @@ export default class ProductsSelectedCompositionScreen extends React.Component {
     const { navigation } = this.props;
     const res = this.props.navigation.state.params.res;
     const mappedResponse = res.map((item)=>{ return item.product_id })
+    console.log(res);
     console.log("\nmappedResponse: ", mappedResponse)
 
     axios.post("http://62.75.141.240:9001/productsList", {

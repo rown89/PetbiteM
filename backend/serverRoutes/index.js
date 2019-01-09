@@ -607,12 +607,13 @@ router.post('/searchElementsPlants', passport.authenticate('jwt', { session: fal
     });
 });
 
+// Selected Most Used Components from Search in COMPOSITION TAB
 router.post('/selectedElementsAminoacids', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { elementID } = req.body;
   models.Amino_acids_recipes.findAll({
     where: { amino_acid_id: elementID },
     attributes: ['id', 'product_id'],
-    order: [['name', 'ASC']],
+    include: [{ attributes: ['id', 'name'], order: [['name', 'ASC']], model: models.Amino_acids }]
   })
     .then((Amino) => {
       res.send(Amino);
@@ -627,7 +628,7 @@ router.post('/selectedElementsAnalytical-Compositions', passport.authenticate('j
   models.Anal_comps_recipes.findAll({
     where: { anal_comp_id: elementID },
     attributes: ['id', 'product_id'],
-    order: [['name', 'ASC']],
+    include: [{ attributes: ['id', 'name'], order: [['name', 'ASC']], model: models.Anal_comps }]
   })
     .then((Anal) => {
       res.send(Anal);
@@ -657,7 +658,7 @@ router.post('/selectedElementsMinerals', passport.authenticate('jwt', { session:
   models.Minerals_recipes.findAll({
     where: { mineral_id: elementID },
     attributes: ['id', 'product_id'],
-    order: [['name', 'ASC']],
+    include: [{ attributes: ['id', 'name'], order: [['name', 'ASC']], model: models.Minerals }]
   })
     .then((Minerals) => {
       res.send(Minerals);
@@ -672,7 +673,7 @@ router.post('/selectedElementsVitamins', passport.authenticate('jwt', { session:
   models.Vitamins_recipes.findAll({
     where: { vitamin_id: elementID },
     attributes: ['id', 'product_id'],
-    order: [['name', 'ASC']],
+    include: [{ attributes: ['id', 'name'], order: [['name', 'ASC']], model: models.Vitamins }]
   })
     .then((Vitamins) => {
       res.send(Vitamins);
@@ -687,7 +688,7 @@ router.post('/selectedElementsPlants', passport.authenticate('jwt', { session: f
   models.Plants_recipes.findAll({
     where: { plant_id: elementID },
     attributes: ['id', 'product_id'],
-    order: [['name', 'ASC']],
+    include: [{ attributes: ['id', 'name'], order: [['name', 'ASC']], model: models.Plants }]
   })
     .then((Plants) => {
       res.send(Plants);

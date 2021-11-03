@@ -44,7 +44,7 @@
     "react-navigation": "^2.18.3",
     "sequelize": "^4.42.0",
     "serve-favicon": "^2.5.0",
-    "validator": "^10.10.0",
+    "validator": "^13.7.0",
     "victory-native": "^30.6.0"
   },
   "devDependencies": {

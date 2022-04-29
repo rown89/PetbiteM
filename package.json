@@ -9,7 +9,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^2.6.4",
     "babel-polyfill": "^6.26.0",
     "bcrypt": "^3.0.3",
     "body-parser": "^1.18.3",

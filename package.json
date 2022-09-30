@@ -45,7 +45,7 @@
     "sequelize": "^4.42.0",
     "serve-favicon": "^2.5.0",
     "validator": "^10.10.0",
-    "victory-native": "^30.6.0"
+    "victory-native": "^36.6.8"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

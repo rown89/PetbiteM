@@ -15,7 +15,7 @@
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
-    "expo": "^29.0.1",
+    "expo": "^46.0.16",
     "expo-cli": "^1.2.3",
     "expo-react-native-adapter": "^1.2.0",
     "express": "^4.16.4",
